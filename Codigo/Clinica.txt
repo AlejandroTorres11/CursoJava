@@ -1,0 +1,7 @@
+165388,Juan,Cardiología,ADESLAS,0,2024-05-01,false
+165390,Pedro,Pediatría,ADESLAS,0,2024-05-03,false
+165389,Maria,Dermatología,PRIVADO,0,2024-05-02,false
+165389,Maria,Oftalmología,PRIVADO,0,2024-01-30,false
+165393,Luis,Digestivo,PRIVADO,0,2024-05-12,false
+165393,Luis,Dermatologia,PRIVADO,0,2027-03-21,false
+165392,David,Oftalmología,SANITAS,0,2024-05-12,false

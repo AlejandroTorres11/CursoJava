@@ -94,15 +94,8 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "historiaClinica='" + historiaClinica + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", servicio='" + servicio + '\'' +
-                ", seguroMedico='" + seguroMedico + '\'' +
-                ", importe=" + importe +
-                ", fechaCita=" + fechaCita +
-                ", atendido=" + atendido +
-                '}';
+        return historiaClinica +","+nombre+","+servicio+","+seguroMedico+","+importe+","+fechaCita+","+atendido;
+
     }
 }
 

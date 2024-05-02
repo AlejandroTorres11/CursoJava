@@ -61,38 +61,53 @@ public class Clinica {
         return listaPacientes;
     }
 
-    public boolean darCita() {
+    public boolean darCita(String historiaClinica, String servicio, LocalDate fechaCita) throws Exception {
         boolean resultado = false;
         for (Paciente paciente : listaPacientes) {
-            if (!paciente.isAtendido()) {
-                paciente.setAtendido(true);
-                resultado = true;
-                if (paciente.getSeguroMedico() == "PRIVADO") {
-                    paciente.setImporte(50);
-                } else {
-                    paciente.setImporte(30);
-                }
-                break;
+            if(paciente.getHistoriaClinica().equals(historiaClinica)) {
+                    Paciente nuevoPaciente= new Paciente(paciente.getHistoriaClinica(),paciente.getNombre(),servicio, paciente.getSeguroMedico(),0,fechaCita,false);
+                    listaPacientes.add(nuevoPaciente);
+                    break;
             }
         }
         return resultado;
     }
 
-    public Paciente atenderPaciente() { //el primer paciente no atendido del dia,se cobra segun tenga o no seguro, null si no hay paciente
-        return null;
+    public Paciente atenderPaciente(String servicio) { //el primer paciente no atendido del dia,se cobra segun tenga o no seguro, null si no hay paciente
+        Paciente p = null;
+        for (Paciente paciente : listaPacientes) {
+            if (!paciente.isAtendido() && paciente.getServicio().equals(servicio)) {
+                paciente.setAtendido(true);
+                if (paciente.getSeguroMedico() == "PRIVADO") {
+                    paciente.setImporte(50);
+                } else {
+                    paciente.setImporte(30);
+                }
+                paciente.setAtendido(true);
+                p=paciente;
+                break;
+            }
+        }
+        return p;
     }
 
-    public void modificaCita(String historiaClinica, LocalDate nuevaFecha) {
+    public void modificaCita(String historiaClinica,String servicio,LocalDate nuevaFecha) {
         for (Paciente paciente : listaPacientes) {
-            if (paciente.getHistoriaClinica().equals(historiaClinica)) {
+            if (paciente.getHistoriaClinica().equals(historiaClinica) && paciente.getServicio().equals(servicio)) {
                 paciente.setFechaCita(nuevaFecha);
                 break;
             }
         }
     }
 
-    public void mostrarHistorialPaciente() {
+    public void mostrarHistorialPaciente(String historiaClinica) {
         //problema ya que el numero de historia clinica es solo un numero, no entiendo lo que pide el enunciado,.
+        System.out.println("Historial del paciente "+historiaClinica);
+        for (Paciente paciente : listaPacientes) {
+            if (paciente.getHistoriaClinica().equals(historiaClinica)) {
+                System.out.println(paciente);
+            }
+        }
     }
 
     public List<Paciente> mostrarPacientesSinAtender() {
@@ -112,17 +127,33 @@ public class Clinica {
     }
 
     public int eliminarPacienteSeguro(String seguro) {
-        int eliminados=0;
-        for(Paciente paciente : listaPacientes) {
-            if (paciente.getSeguroMedico() == seguro) {
-                listaPacientes.remove(paciente);
+        int eliminados = 0;
+        Iterator<Paciente> iterator = listaPacientes.iterator();
+        while (iterator.hasNext()) {
+            Paciente paciente = iterator.next();
+            if (seguro.equals(paciente.getSeguroMedico())) {
+                iterator.remove();
                 eliminados++;
             }
         }
         return eliminados;
     }
 
-    public boolean guardarDatos() {
-        return true;
+
+    public boolean guardarDatos() throws IOException {
+        boolean salvado = false;
+        FileWriter fw;
+        fw = new FileWriter("Clinica.txt");//borramos el fichero y creamos uno nuevo
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (Paciente paciente : listaPacientes) {
+            bw.write(paciente.toString());
+            bw.newLine();
+        }
+        fw.flush();
+
+        bw.close();
+        fw.close();
+        salvado = true;
+        return salvado;
     }
 }
