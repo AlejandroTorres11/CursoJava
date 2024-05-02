@@ -1,4 +1,4 @@
-package Excepciones;
+package excepciones;
 
 public class historiaClinicaException extends Exception{
 }

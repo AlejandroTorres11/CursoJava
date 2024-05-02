@@ -1,8 +1,9 @@
-import Excepciones.historiaClinicaException;
+package Clinica;
 
+import excepciones.historiaClinicaException;
 import java.time.LocalDate;
 import java.util.Objects;
-import Excepciones.*;
+import excepciones.*;
 public class Paciente {
     private String historiaClinica;
     private String nombre;
@@ -12,7 +13,7 @@ public class Paciente {
     private LocalDate fechaCita;
     private boolean atendido;
 
-    public Paciente(String historiaClinica, String nombre, String servicio, String seguroMedico, int importe, LocalDate fechaCita, boolean atendido) throws historiaClinicaException,fechaException,camposVaciosException, Exception {
+    public Paciente(String historiaClinica, String nombre, String servicio, String seguroMedico, int importe, LocalDate fechaCita, boolean atendido) throws historiaClinicaException,fechaException,CamposVaciosException, Exception {
         this.historiaClinica = historiaClinica;
         this.nombre = nombre;
         this.servicio = servicio;
@@ -104,3 +105,4 @@ public class Paciente {
                 '}';
     }
 }
+
