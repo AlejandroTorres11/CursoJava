@@ -1,1 +1,5 @@
-165388, Maria, Oftalmologia, ADESLAS, 0, ,false
+165388,Maria,Oftalmologia,ADESLAS,0,2021-01-30,false
+165389,David,Oftalmologia,ADESLAS,0,2024-05-12,false
+165390,Juan,Cardiología,SANITAS,100,2024-05-01,false
+165391,María,Dermatología,PRIVADO,150,2024-05-02,false
+165392,Pedro,Pediatría,DKV,200,2024-05-03,false

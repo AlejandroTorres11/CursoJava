@@ -30,6 +30,7 @@ public class Paciente {
         this.historiaClinica = historiaClinica;
     }
 
+
     public String getNombre() {
         return nombre;
     }
