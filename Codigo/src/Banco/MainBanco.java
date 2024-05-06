@@ -1,9 +1,10 @@
 package Banco;
 
+import java.io.IOException;
+
 public class MainBanco {
-    public static void main(String[] args) {
-        CuentaBancaria cuentaBancaria = new CuentaBancaria();
-        System.out.println(cuentaBancaria.CalcularDC("23452222","0123456558"));
-        cuentaBancaria.generarAleatorio();
+    public static void main(String[] args) throws Exception {
+        BancoController banco= new BancoController();
+
     }
 }
