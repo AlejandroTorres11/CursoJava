@@ -1,0 +1,26 @@
+Ejercicio Resturante
+1.De cada una de las mesas del restaurante se tienen los siguientes datos:
+  • Número de la mesa: de 1 a 20.
+  • Capacidad: 4 u 8 personas. 
+  • Situación: Terraza/Interior.
+	Las mesas libres del restaurante se almacenan en una pila pMesas. 
+2. Para cada reserva se tienen los siguientes datos: 
+	• Número de la mesa (si el número de personas de la reserva es mayor de 4 se le asignará una de 8, teniendo en cuenta la situación indicada en la reserva). 
+	• Nombre del cliente. 
+	• Número de personas. 
+	• Preferencia de menú. 
+	• Situación de la mesa. • Finalizado. 
+Las reservas se almacenarán en lista listaReservas.  
+
+Funcionamiento:
+	-Para asignar mesa busca en la pila, si no hay mesa se mete en listaPendientes.
+	-Despues de finalizar una reserva se comprueba si se puede reservar otra.
+	-Programa termina cuando todas las reservas han sido gestionadas.
+
+Funciones:
+1.Generar aleatoriamente las mesas 
+2.Generar aleatoriamente las reservas
+3.Mostrar la lista Reservas
+4.Mostrar la pila de Mesas
+5.Gestionar 1 reserva
+6.Gestionar todas las reservas
