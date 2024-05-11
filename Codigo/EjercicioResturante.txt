@@ -14,7 +14,6 @@ Las reservas se almacenarán en lista listaReservas.
 
 Funcionamiento:
 	-Para asignar mesa busca en la pila, si no hay mesa se mete en listaPendientes.
-	-Despues de finalizar una reserva se comprueba si se puede reservar otra.
 	-Programa termina cuando todas las reservas han sido gestionadas.
 
 Funciones:
@@ -24,3 +23,4 @@ Funciones:
 4.Mostrar la pila de Mesas
 5.Gestionar 1 reserva
 6.Gestionar todas las reservas
+7.Gestionar reservas pendientes

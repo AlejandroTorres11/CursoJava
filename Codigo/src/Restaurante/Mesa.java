@@ -59,6 +59,6 @@ public class Mesa {
     public String toString() {
         return "numeroMesa=" + numeroMesa +
                 ", capacidad=" + capacidad +
-                ", situacion='" + situacion +"disponible="+disponible+"-->\n" ;
+                ", situacion='" + situacion +", disponible="+disponible+"-->\n" ;
     }
 }
