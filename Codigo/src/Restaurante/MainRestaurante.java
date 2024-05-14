@@ -9,14 +9,18 @@ public class MainRestaurante {
         r.generarMesas();
         r.mostrarMesas();
         System.out.println();
-        r.gestionarReservas();
-        System.out.println();
+        r.gestionarUnaReserva();
+        //r.gestionarReservas();
+        System.out.println("Mesas disponibles");
         r.mostrarMesas();
-        System.out.println();
+        System.out.println("Mesas ocupadas:");
         r.mostrarMesasOcupadas();
-        System.out.println();
+        System.out.println("Reservas:");
         r.mostrarReservas();
+        System.out.println("Atendiendose:");
         r.mostrarAtendiendose();
+        System.out.println("Pendientes: ");
+        r.mostrarPendientes();
 
     }
 

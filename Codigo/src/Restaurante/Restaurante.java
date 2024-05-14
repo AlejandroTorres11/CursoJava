@@ -91,17 +91,24 @@ public class Restaurante {
         PilaMesa aux= new PilaMesa();
         ArrayList<Reserva> eliminar= new ArrayList<>();
         for(Reserva r : listaReservas){
-            for(int i=0; i< pMesas.tamaño(); i++){
-                m=pMesas.extraer();
-                if(m.getSituacion().equals(r.getSituacionMesa()) && m.getCapacidad()>= r.getNumeroPersonas()){
-                    r.setNumeroMesa(m.getNumeroMesa());
-                    m.setDisponible(false);
-                    pMesasOcupadas.insertar(m);
-                    listaAtendiendose.add(r);
-                    eliminar.add(r);
+            if(!r.isAtendida()){
+                for(int i=0; i< pMesas.tamaño(); i++){
+                    m=pMesas.extraer();
+                    if(m.getSituacion().equals(r.getSituacionMesa()) && m.getCapacidad()>= r.getNumeroPersonas()){
+                        r.setNumeroMesa(m.getNumeroMesa());
+                        m.setDisponible(false);
+                        r.setAtendida(true);
+                        pMesasOcupadas.insertar(m);
+                        listaAtendiendose.add(r);
+                        eliminar.add(r);
+                        break;
+                    }
+                    else{
+                        aux.insertar(m);
+                    }
                 }
-                else{
-                    aux.insertar(m);
+                if(r.getNumeroMesa()==0){
+                    listaPendientes.add(r);
                 }
             }
             aux.volcarPila(pMesas);

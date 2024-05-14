@@ -9,6 +9,7 @@ public class Reserva {
     private int numeroPersonas;
     private String menu;
     private String situacionMesa;
+    private boolean atendida;
 
     public Reserva(int numeroReserva,int numeroMesa, String nombre, int numeroPersonas, String menu, String situacionMesa) {
         this.numeroReserva = numeroReserva;
@@ -17,6 +18,7 @@ public class Reserva {
         this.numeroPersonas = numeroPersonas;
         this.menu = menu;
         this.situacionMesa = situacionMesa;
+        this.atendida = false;
     }
 
     @Override
@@ -75,6 +77,14 @@ public class Reserva {
         this.situacionMesa = situacionMesa;
     }
 
+    public boolean isAtendida() {
+        return atendida;
+    }
+
+    public void setAtendida(boolean atendida) {
+        this.atendida = atendida;
+    }
+
     @Override
     public String toString() {
         return "Reserva{" +
@@ -83,7 +93,7 @@ public class Reserva {
                 ", nombre='" + nombre + '\'' +
                 ", numeroPersonas=" + numeroPersonas +
                 ", menu='" + menu + '\'' +
-                ", situacionMesa='" + situacionMesa + '\'' +
+                ", situacionMesa='" + situacionMesa + '\'' + "atendia= " + atendida +
                 '}';
     }
 }
