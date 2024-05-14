@@ -67,14 +67,25 @@ public class Restaurante {
         Reserva r= listaReservas.get(0);
         PilaMesa aux= new PilaMesa();
         Mesa m;
+        int numeroPersonas = r.getNumeroPersonas();
+
+        if(numeroPersonas>4){
+            numeroPersonas=8;
+
+        }
+        else if(numeroPersonas<=4){
+            numeroPersonas=4;
+
+        }
         for(int i=0; i< pMesas.tamaño(); i++){
             m=pMesas.extraer();
-            if(m.getSituacion().equals(r.getSituacionMesa()) && m.getCapacidad()>= r.getNumeroPersonas()){
+            if(m.getSituacion().equals(r.getSituacionMesa()) && m.getCapacidad()== numeroPersonas){
                 r.setNumeroMesa(m.getNumeroMesa());
                 m.setDisponible(false);
                 pMesasOcupadas.insertar(m);
                 listaAtendiendose.add(r);
                 listaReservas.remove(r);
+                aux.volcarPila(pMesas);
                 return;
             }
             else{
@@ -90,11 +101,21 @@ public class Restaurante {
         Mesa m;
         PilaMesa aux= new PilaMesa();
         ArrayList<Reserva> eliminar= new ArrayList<>();
-        for(Reserva r : listaReservas){
+        for(Reserva r : listaReservas){ //busqueda comensal
             if(!r.isAtendida()){
-                for(int i=0; i< pMesas.tamaño(); i++){
+                int numeroPersonas = r.getNumeroPersonas();
+                System.out.println(numeroPersonas);
+                if(numeroPersonas>4){
+                    numeroPersonas=8;
+
+                }
+                else if(numeroPersonas<=4){
+                    numeroPersonas=4;
+
+                }
+                for(int i=0; i< pMesas.tamaño(); i++){ //busqueda mesa
                     m=pMesas.extraer();
-                    if(m.getSituacion().equals(r.getSituacionMesa()) && m.getCapacidad()>= r.getNumeroPersonas()){
+                    if(m.getSituacion().equals(r.getSituacionMesa()) && numeroPersonas==m.getCapacidad() && !r.isAtendida()){
                         r.setNumeroMesa(m.getNumeroMesa());
                         m.setDisponible(false);
                         r.setAtendida(true);

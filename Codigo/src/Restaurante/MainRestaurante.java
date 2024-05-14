@@ -10,7 +10,7 @@ public class MainRestaurante {
         r.mostrarMesas();
         System.out.println();
         r.gestionarUnaReserva();
-        //r.gestionarReservas();
+        //.gestionarReservas();
         System.out.println("Mesas disponibles");
         r.mostrarMesas();
         System.out.println("Mesas ocupadas:");
