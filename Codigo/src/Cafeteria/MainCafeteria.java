@@ -9,6 +9,7 @@ public class MainCafeteria {
         caf.mostrarPilaBandejas();
         System.out.println("Comensales");
         caf.mostrarListaComensales();
+        /*
         System.out.println("1");
         caf.atenderCurso(1);
         caf.mostrarPilaBandejas();
@@ -17,5 +18,15 @@ public class MainCafeteria {
         caf.atenderCurso(2);
         caf.mostrarPilaBandejas();
         caf.mostrarListaComensales();
+         */
+        System.out.println("");
+        caf.atenderTodosCursos();
+        System.out.println("servidos");
+        caf.mostrarServidos();
+        System.out.println("Bandejas");
+        caf.mostrarPilaBandejas();
+        System.out.println("Pendientes");
+        caf.mostrarPendientes();
+
     }
 }

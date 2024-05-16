@@ -83,7 +83,7 @@ public class Comensal {
 
     @Override
     public String toString() {
-        return "numero=" + numero +
+        return "numero=" + numero + ", numero bandeja= " + numeroBandeja +
                 ", nombre='" + nombre + '\'' +
                 ", curso=" + curso +
                 ", servido=" + servido +

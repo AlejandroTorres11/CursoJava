@@ -1,10 +1,15 @@
 package Cafeteria;
 
+import Restaurante.Mesa;
+import Restaurante.PilaMesa;
+import Restaurante.Reserva;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Cafeteria {
     ArrayList<Comensal> listaComensales = new ArrayList<>();
+    ArrayList<Comensal> listaPendientes= new ArrayList<>();
     PilaBandeja pBandejas = new PilaBandeja();
     public Cafeteria() {
     }
@@ -14,7 +19,11 @@ public class Cafeteria {
             System.out.println(c);
         }
     }
-
+    public void mostrarPendientes(){
+        for (Comensal c : listaPendientes) {
+            System.out.println(c);
+        }
+    }
     public void mostrarPilaBandejas() {
         pBandejas.mostrar();
     }
@@ -53,7 +62,7 @@ public class Cafeteria {
             String platoPrincipal = platos[rand.nextInt(platos.length)];
             String postre = postres[rand.nextInt(postres.length)];
             Boolean vegano = (rand.nextInt(2) == 0) ? true : false;
-            Boolean disponible = (rand.nextInt(2) == 0) ? true : false;
+            Boolean disponible = true;
             Bandeja bandeja= new Bandeja(numero,platoPrincipal,postre,vegano,disponible);
             pBandejas.insertar(bandeja);
             bandeja = null;
@@ -93,5 +102,32 @@ public class Cafeteria {
             aux.volcarPila(pBandejas);
         }
         listaComensales.removeAll(listaEliminar);
+    }
+    public void atenderTodosCursos(){
+        Bandeja b;
+        PilaBandeja aux= new PilaBandeja();
+        ArrayList<Comensal> eliminar= new ArrayList<>();
+        for(Comensal c: listaComensales){ //busqueda comensal
+            if(!c.isServido()){
+                for(int i=0; i< pBandejas.tamaño(); i++){ //busqueda mesa
+                    b=pBandejas.extraer();
+                    if(c.isVegano()==b.isVegano() && b.isDisponible() && !c.isServido()){
+                        c.setNumeroBandeja(b.getNumero());
+                        c.setServido(true);
+                        b.setDisponible(false);
+                        eliminar.add(c);
+                        break;
+                    }
+                    else{
+                        aux.insertar(b);
+                    }
+                }
+                if(c.getNumeroBandeja()==0){
+                    listaPendientes.add(c);
+                }
+            }
+            aux.volcarPila(pBandejas);
+        }
+        listaComensales.removeAll(eliminar);
     }
 }
