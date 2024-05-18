@@ -3,6 +3,7 @@ package Restaurante;
 import Clases.Pila;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Restaurante {
@@ -101,7 +102,7 @@ public class Restaurante {
         Mesa m;
         PilaMesa aux= new PilaMesa();
         ArrayList<Reserva> eliminar= new ArrayList<>();
-        for(Reserva r : listaReservas){ //busqueda comensal
+        for(Reserva r : listaReservas){//busqueda comensal
             if(!r.isAtendida()){
                 int numeroPersonas = r.getNumeroPersonas();
                 System.out.println(numeroPersonas);
@@ -136,4 +137,69 @@ public class Restaurante {
         }
         listaReservas.removeAll(eliminar);
     }
+
+    public void servirMesas(){
+        List<Reserva> eliminar= new ArrayList<>();
+        for(Reserva r : listaAtendiendose){
+            Mesa m=pMesasOcupadas.extraerMesaNumero(r.getNumeroMesa());
+            m.setDisponible(true);
+            pMesas.insertar(m);
+            eliminar.add(r);
+        }
+        listaAtendiendose.removeAll(eliminar);
+    }
+    public void atenderPendientes(){
+
+        Mesa m;
+        PilaMesa aux= new PilaMesa();
+        ArrayList<Reserva> eliminar= new ArrayList<>();
+        for(Reserva r : listaPendientes){
+            if(!r.isAtendida()){
+                int numeroPersonas = r.getNumeroPersonas();
+                if(numeroPersonas>4){
+                    numeroPersonas=8;
+
+                }
+                else if(numeroPersonas<=4){
+                    numeroPersonas=4;
+
+                }
+                for(int i=0; i<pMesas.tamaño();i++){
+                    m=pMesas.extraer();
+                    if(m.getCapacidad()==numeroPersonas && m.getSituacion().equals(r.getSituacionMesa()) && m.isDisponible()){
+                        r.setNumeroMesa(m.getNumeroMesa());
+                        m.setDisponible(false);
+                        pMesasOcupadas.insertar(m);
+                        listaAtendiendose.add(r);
+                        r.setAtendida(true);
+                        eliminar.add(r);
+                        break;
+                    }else{
+                        aux.insertar(m);
+                    }
+                }
+            }
+            aux.volcarPila(pMesas);
+        }
+        listaPendientes.removeAll(eliminar);
+    }
+    public int finalizarPendientes(){
+        int i=0;
+        while(listaPendientes.size()>0){
+            System.out.println("Atender pendientes");
+            atenderPendientes();
+            System.out.println("Pendientes");
+            mostrarPendientes();
+            System.out.println("Atendiendose");
+            mostrarAtendiendose();
+            System.out.println("Mesas");
+            mostrarMesas();
+            System.out.println("Mesas ocupadas");
+            mostrarMesasOcupadas();
+            servirMesas();
+            i++;
+        }
+        return i;
+    }
+
 }

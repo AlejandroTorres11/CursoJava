@@ -11,6 +11,7 @@ public class Cafeteria {
     ArrayList<Comensal> listaComensales = new ArrayList<>();
     ArrayList<Comensal> listaPendientes= new ArrayList<>();
     PilaBandeja pBandejas = new PilaBandeja();
+
     public Cafeteria() {
     }
 
@@ -57,7 +58,7 @@ public class Cafeteria {
         String[] platos = {"Ensalada", "Sopa", "Filete", "Tacos", "Paella", "Pizza", "Pasta"};
         String[] postres = {"Pastel", "Helado", "Flan", "Tarta", "Gelatina", "Mousse", "Churros"};
         Random rand = new Random();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) { //se generan 20
             int numero = i + 1;
             String platoPrincipal = platos[rand.nextInt(platos.length)];
             String postre = postres[rand.nextInt(postres.length)];
@@ -73,6 +74,7 @@ public class Cafeteria {
         Random rand = new Random();
 
         for (int i = 0; i < 20; i++) {
+            //constructor del comensal
             Comensal c= new Comensal(i+1,listaNombres[rand.nextInt(45)],(rand.nextInt(3) == 0) ? 1 : (rand.nextInt(2) == 0) ? 2 : 3,false,(rand.nextInt(2) == 0) ? true : false);
             listaComensales.add(c);
         }
@@ -88,6 +90,7 @@ public class Cafeteria {
                         c.setNumeroBandeja(b.getNumero());
                         c.setServido(true);
                         b.setDisponible(false);
+
                         listaEliminar.add(c);
                         break;
                     }
@@ -97,6 +100,7 @@ public class Cafeteria {
                 }
                 if(c.getNumeroBandeja()==0){
                     System.out.println("Bandeja no encontrado");
+                    listaPendientes.add(c);
                 }
             }
             aux.volcarPila(pBandejas);

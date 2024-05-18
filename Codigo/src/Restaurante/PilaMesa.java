@@ -107,5 +107,20 @@ public class PilaMesa {
         aux=aux.invertir();
         return aux;
     }
-
+    public Mesa extraerMesaNumero(int numeroMesa) {
+        PilaMesa aux = new PilaMesa();
+        Mesa valor = null;
+        boolean encontrado = false;
+        while (!estaVacia() && !encontrado) {
+            Mesa mesaActual = extraer();
+            if (mesaActual.getNumeroMesa() == numeroMesa) {
+                valor = mesaActual;
+                encontrado = true;
+            } else {
+                aux.insertar(mesaActual);
+            }
+        }
+        aux.volcarPila(this);
+        return valor;
+    }
 }

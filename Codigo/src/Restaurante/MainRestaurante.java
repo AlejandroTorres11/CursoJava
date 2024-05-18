@@ -9,8 +9,8 @@ public class MainRestaurante {
         r.generarMesas();
         r.mostrarMesas();
         System.out.println();
-        r.gestionarUnaReserva();
-        //.gestionarReservas();
+        //r.gestionarUnaReserva();
+        r.gestionarReservas();
         System.out.println("Mesas disponibles");
         r.mostrarMesas();
         System.out.println("Mesas ocupadas:");
@@ -21,7 +21,29 @@ public class MainRestaurante {
         r.mostrarAtendiendose();
         System.out.println("Pendientes: ");
         r.mostrarPendientes();
-
+        System.out.println("las servimos: ");
+        r.servirMesas();
+        System.out.println("Mesas libres");
+        r.mostrarMesas();
+        System.out.println("Mesas Ocupadas");
+        r.mostrarMesasOcupadas();
+        System.out.println("Reservas Atendiendose");
+        r.mostrarAtendiendose();
+        /*
+        System.out.println("Atender pendientes");
+        r.atenderPendientes();
+        System.out.println("Pendientes");
+        r.mostrarPendientes();
+        System.out.println("Atendiendose");
+        r.mostrarAtendiendose();
+        System.out.println("Mesas");
+        r.mostrarMesas();
+        System.out.println("Mesas ocupadas");
+        r.mostrarMesasOcupadas();
+         */
+        System.out.println("----------------------------------fINALIZAR------------------------------------------------------------");
+        int i=r.finalizarPendientes();
+        System.out.println(i);
     }
 
 }
