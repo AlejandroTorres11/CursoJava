@@ -7,15 +7,17 @@ public class Comensal {
     private int numeroBandeja;
     private String nombre;
     private int curso;
+    private String platoPrincipal;
     private boolean servido;
     private boolean vegano;
 
     // Constructor
-    public Comensal(int numero, String nombre, int curso, boolean servido, boolean vegano) {
+    public Comensal(int numero, String nombre, int curso, boolean servido,String platoPrincipal, boolean vegano) {
         this.numero = numero;
         this.numeroBandeja=0;
         this.nombre = nombre;
         this.curso = curso;
+        this.platoPrincipal=platoPrincipal;
         this.servido = servido;
         this.vegano = vegano;
     }
@@ -53,6 +55,14 @@ public class Comensal {
         this.curso = curso;
     }
 
+    public String getPlatoPrincipal() {
+        return platoPrincipal;
+    }
+
+    public void setPlatoPrincipal(String platoPrincipal) {
+        this.platoPrincipal = platoPrincipal;
+    }
+
     public boolean isServido() {
         return servido;
     }
@@ -85,7 +95,7 @@ public class Comensal {
     public String toString() {
         return "numero=" + numero + ", numero bandeja= " + numeroBandeja +
                 ", nombre='" + nombre + '\'' +
-                ", curso=" + curso +
+                ", curso=" + curso + ", platoPrincipal='" + platoPrincipal  +
                 ", servido=" + servido +
                 ", vegano=" + vegano ;
     }

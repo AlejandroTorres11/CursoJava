@@ -11,6 +11,7 @@ public class Cafeteria {
     ArrayList<Comensal> listaComensales = new ArrayList<>();
     ArrayList<Comensal> listaPendientes= new ArrayList<>();
     PilaBandeja pBandejas = new PilaBandeja();
+    PilaBandeja pBandejasTotales = new PilaBandeja();
 
     public Cafeteria() {
     }
@@ -28,7 +29,7 @@ public class Cafeteria {
     public void mostrarPilaBandejas() {
         pBandejas.mostrar();
     }
-
+    public void mostrarPilaBandejasTotales() {pBandejasTotales.mostrar();}
     public void mostrarCurso(int curso) {
         for (Comensal c : listaComensales) {
             if (c.getCurso() == curso) {
@@ -53,7 +54,6 @@ public class Cafeteria {
         }
     }
 
-
     public void generarBandejas() {
         String[] platos = {"Ensalada", "Sopa", "Filete", "Tacos", "Paella", "Pizza", "Pasta"};
         String[] postres = {"Pastel", "Helado", "Flan", "Tarta", "Gelatina", "Mousse", "Churros"};
@@ -66,16 +66,19 @@ public class Cafeteria {
             Boolean disponible = true;
             Bandeja bandeja= new Bandeja(numero,platoPrincipal,postre,vegano,disponible);
             pBandejas.insertar(bandeja);
+            pBandejasTotales.insertar(bandeja);
             bandeja = null;
         }
     }
+
     public void generarComensales() {
         String listaNombres[] = {"David", "Alejandro", "Juan", "Pedro", "Sandra", "Maria", "Alejandra", "Silvia", "Jose", "Vanesa", "Ana", "Patricia", "Fernando", "Manuel", "Luis", "Elena", "Carlos", "Carmen", "Lorena", "Roberto", "Rosa", "Laura", "Javier", "Isabel", "Antonio", "Eduardo", "Marta", "Raul", "Lucia", "Diego", "Veronica", "Sergio", "Monica", "Andres", "Beatriz", "Miguel", "Maria Jose", "Pablo", "Victoria", "Ricardo", "Natalia", "Hector", "Valentina", "Gonzalo", "Camila", "Rene", "Paola", "Hugo", "Diana"};
         Random rand = new Random();
-
+        String[] platos = {"Ensalada", "Sopa", "Filete", "Tacos", "Paella", "Pizza", "Pasta"};
         for (int i = 0; i < 20; i++) {
-            //constructor del comensal
-            Comensal c= new Comensal(i+1,listaNombres[rand.nextInt(45)],(rand.nextInt(3) == 0) ? 1 : (rand.nextInt(2) == 0) ? 2 : 3,false,(rand.nextInt(2) == 0) ? true : false);
+
+            String platoPrincipal = platos[rand.nextInt(platos.length)];
+            Comensal c= new Comensal(i+1,listaNombres[rand.nextInt(45)],(rand.nextInt(3) == 0) ? 1 : (rand.nextInt(2) == 0) ? 2 : 3,false, platoPrincipal,(rand.nextInt(2) == 0) ? true : false);
             listaComensales.add(c);
         }
     }
@@ -83,10 +86,11 @@ public class Cafeteria {
         PilaBandeja aux= new PilaBandeja();
         ArrayList<Comensal> listaEliminar = new ArrayList<>();
         for (Comensal c : listaComensales) {
-            if (c.getCurso() == curso && !c.isServido()) {
+            String platoP=c.getPlatoPrincipal();
+            if (c.getCurso() == curso && !c.isServido() ) {
                 for(int i=0; i<pBandejas.tamaño();i++){
                     Bandeja b= pBandejas.extraer();
-                    if(c.isVegano()==b.isVegano()){
+                    if(c.isVegano()==b.isVegano() && platoP.equals(c.getPlatoPrincipal())){
                         c.setNumeroBandeja(b.getNumero());
                         c.setServido(true);
                         b.setDisponible(false);
@@ -112,10 +116,11 @@ public class Cafeteria {
         PilaBandeja aux= new PilaBandeja();
         ArrayList<Comensal> eliminar= new ArrayList<>();
         for(Comensal c: listaComensales){ //busqueda comensal
+            String platoP=c.getPlatoPrincipal();
             if(!c.isServido()){
                 for(int i=0; i< pBandejas.tamaño(); i++){ //busqueda mesa
                     b=pBandejas.extraer();
-                    if(c.isVegano()==b.isVegano() && b.isDisponible() && !c.isServido()){
+                    if(c.isVegano()==b.isVegano() && b.isDisponible() && !c.isServido() && platoP.equals(c.getPlatoPrincipal())){
                         c.setNumeroBandeja(b.getNumero());
                         c.setServido(true);
                         b.setDisponible(false);
@@ -134,4 +139,42 @@ public class Cafeteria {
         }
         listaComensales.removeAll(eliminar);
     }
+    public void atenderPendientes(){
+        Bandeja b;
+        PilaBandeja aux= new PilaBandeja();
+        ArrayList<Comensal> eliminar= new ArrayList<>();
+        for(Comensal c: listaComensales){
+            String platoP=c.getPlatoPrincipal();
+            if(!c.isServido()){
+                for(int i=0; i< pBandejas.tamaño(); i++){ //busqueda mesa
+                    b=pBandejas.extraer();
+                    if(c.isVegano()==b.isVegano() && b.isDisponible() && !c.isServido()){
+                        c.setNumeroBandeja(b.getNumero());
+                        c.setServido(true);
+                        b.setDisponible(false);
+                        eliminar.add(c);
+                        break;
+                    }
+                    else{
+                        aux.insertar(b);
+                    }
+                }
+                if(c.getNumeroBandeja()==0){
+                    int numero= pBandejasTotales.mayorNumero() +1;
+                    Random rand= new Random();
+                    String[] postres = {"Pastel", "Helado", "Flan", "Tarta", "Gelatina", "Mousse", "Churros"};
+                    String postre = postres[rand.nextInt(postres.length)];
+                    Boolean vegano = c.isVegano();
+                    Boolean disponible = false;
+                    Bandeja b2= new Bandeja(numero,platoP,postre,vegano,disponible);
+                    c.setNumeroBandeja(b2.getNumero());
+                    pBandejasTotales.insertar(b2);
+                    eliminar.add(c);
+                }
+            }
+            aux.volcarPila(pBandejas);
+        }
+        listaPendientes.removeAll(eliminar);
+    }
+
 }

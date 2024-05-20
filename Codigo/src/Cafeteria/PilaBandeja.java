@@ -107,4 +107,17 @@ public class PilaBandeja {
         aux=aux.invertir();
         return aux;
     }
+    public int mayorNumero(){
+        int numeroMaximo=0;
+        NodoBandeja aux=ultimo;
+        Bandeja valor;
+        while (aux!=null){
+            valor=aux.valor;
+            if(valor.getNumero()>numeroMaximo){
+                numeroMaximo=valor.getNumero();
+            }
+            aux=aux.siguiente;
+        }
+        return numeroMaximo;
+    }
 }
