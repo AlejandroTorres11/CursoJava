@@ -1,7 +1,4 @@
-package Clinica;
 
-import Clinica.Conexion.Conexion;
-import Clinica.Conexion.DatosClinica;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,17 +13,19 @@ public class Clinica {
     Conexion conexion = new Conexion();
     DatosClinica datosClinica= null;
     public Clinica() throws IOException, Exception {
-
         try {
-            conexion.ConexionBaseDeDatos(); // Conecta a la base de datos
-            Connection con = conexion.getConnection(); // Obtiene la conexión
-            datosClinica = new DatosClinica(con);
-            listaPacientes = datosClinica.getConsultaPacientes("SELECT * FROM Paciente");
+            Conexion conexion= new Conexion();
+            conexion.ConexionBaseDeDatos();
+            Connection con= conexion.getConnection()
+;           datosClinica = new DatosClinica(con);
+            listaPacientes = datosClinica.getConsultaPacientes("Select * from pacientes");
+            System.out.println("baliza");
         } catch (SQLException e) {
             // Manejo de excepciones
             e.printStackTrace();
         }
     }
+    
     public List<Paciente> getListaPacientes() {
         return listaPacientes;
     }
@@ -50,12 +49,13 @@ public class Clinica {
         return listaPacientes;
     }
 
-    public boolean darCita(int historiaClinica, String servicio, LocalDate fechaCita) throws Exception {
+    public boolean darCita(int historiaClinica, String servicio, Date fechaCita) throws Exception {
         boolean resultado = false;
         for (Paciente paciente : listaPacientes) {
             if(paciente.getHistoriaClinica() ==historiaClinica) {
                     Paciente nuevoPaciente= new Paciente(paciente.getHistoriaClinica(),paciente.getNombre(),servicio, paciente.getSeguroMedico(),0,fechaCita,false);
                     listaPacientes.add(nuevoPaciente);
+                    datosClinica.agregarPaciente(nuevoPaciente);
                     break;
             }
         }
@@ -80,7 +80,7 @@ public class Clinica {
         return p;
     }
 
-    public void modificaCita(int historiaClinica,String servicio,LocalDate nuevaFecha) {
+    public void modificaCita(int historiaClinica,String servicio,Date nuevaFecha) {
         for (Paciente paciente : listaPacientes) {
             if ((paciente.getHistoriaClinica()==historiaClinica) && paciente.getServicio().equals(servicio)) {
                 paciente.setFechaCita(nuevaFecha);
@@ -130,3 +130,4 @@ public int eliminarPacienteSeguro(String seguro) throws SQLException {
         return eliminados;
     }
 }
+

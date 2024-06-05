@@ -1,0 +1,26 @@
+
+CREATE DATABASE clinica;
+use clinica;
+CREATE TABLE pacientes (
+    historiaClinica INT	NOT NULL auto_increment ,
+    nombre TEXT NOT NULL,
+    servicio TEXT NOT NULL,
+    seguroMedico TEXT NOT NULL,
+    importe INT NOT NULL,
+    fechaCita DATE NOT NULL,
+    atendido BOOLEAN NOT NULL,
+    PRIMARY KEY (historiaClinica)
+);
+show  tables;
+
+INSERT INTO pacientes (nombre, servicio, seguroMedico, importe, fechaCita, atendido) VALUES
+('Juan Pérez', 'Consulta general', 'Seguro A', 100, '2024-06-05', true),
+('María López', 'Odontología', 'Seguro B', 150, '2024-06-06', false),
+('Carlos Rodríguez', 'Consulta pediátrica', 'Particular', 80, '2024-06-07', false),
+('Ana García', 'Ginecología', 'Seguro C', 200, '2024-06-08', true),
+('Pedro Martínez', 'Oftalmología', 'Seguro A', 120, '2024-06-09', true),
+('Sofía Hernández', 'Dermatología', 'Seguro B', 180, '2024-06-10', false),
+('Luisa Ramírez', 'Consulta general', 'Particular', 100, '2024-06-11', true),
+('Javier Gómez', 'Ortopedia', 'Seguro D', 250, '2024-06-12', false),
+('Elena Torres', 'Neurología', 'Seguro C', 300, '2024-06-13', true),
+('Miguel Sánchez', 'Cardiología', 'Seguro A', 220, '2024-06-14', false);

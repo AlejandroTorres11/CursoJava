@@ -1,8 +1,12 @@
 package TiendaOnline;
 
+import Banco.CuentaBancaria;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.io.*;
 
 public class Tienda {
     public ArrayList<Cliente> listaClientes= new ArrayList<>();
@@ -11,7 +15,8 @@ public class Tienda {
     public ArrayList<Pedido> listaPedidosRealizados=new ArrayList<>();
     public ArrayList<Pedido> listaPedidosPendientes=new ArrayList<>();
     public Tienda() {
-
+        //generarProductos();
+        generarClientes();
     }
 
     public void generarClientes(){
@@ -28,21 +33,21 @@ public class Tienda {
     }
 
     public void generarProductos(){
-        Producto p=new Producto("Cuchillo",1, 15.0F);
+        Producto p=new Producto("Cuchillo",1, 15.0F,9);
         listaProductos.add(p);
-        Producto p2=new Producto("Secadora",2, 20.0F);
+        Producto p2=new Producto("Secadora",2, 20.0F,11);
         listaProductos.add(p2);
-        Producto p3=new Producto("Ordenador",3, 600.0F);
+        Producto p3=new Producto("Ordenador",3, 600.0F,14);
         listaProductos.add(p3);
-        Producto p4=new Producto("Mesa",4, 150.0F);
+        Producto p4=new Producto("Mesa",4, 150.0F,5);
         listaProductos.add(p4);
-        Producto p5=new Producto("Cuchillo",5, 15.0F);
+        Producto p5=new Producto("Cuchillo",5, 15.0F,40);
         listaProductos.add(p5);
-        Producto p6=new Producto("Secadora",6, 20.0F);
+        Producto p6=new Producto("Secadora",6, 20.0F,22);
         listaProductos.add(p6);
-        Producto p7=new Producto("Ordenador",7, 600.0F);
+        Producto p7=new Producto("Ordenador",7, 600.0F,33);
         listaProductos.add(p7);
-        Producto p8=new Producto("Mesa",8, 150.0F);
+        Producto p8=new Producto("Mesa",8, 150.0F,6);
         listaProductos.add(p8);
     }
     public void añadirAlCarrito(int id,int idProducto){
@@ -81,8 +86,8 @@ public class Tienda {
         ArrayList<Producto> productos= cliente.getCarrito();
         float costeTotal= cliente.PrecioCarrito();
         String estado= "recibido";
-        Pedido pedido= new Pedido(idPedido,idCliente,productos,costeTotal,estado);
-        listaPedidos.add(pedido);
+        //Pedido pedido= new Pedido(idPedido,idCliente,productos,costeTotal,estado);
+        //listaPedidos.add(pedido);
         cliente.vaciarCarrito();
     }
     public void mostrarPedidos(){
@@ -110,6 +115,88 @@ public class Tienda {
     public void mostrarProductos(){
         for(Producto producto: listaProductos){
             System.out.println(producto);
+        }
+    }
+    public boolean guardarDatosProductos() throws IOException {
+        File f = new File("Productos.txt");
+        if (!f.exists()) {
+            System.out.println("Fichero no existente, creando uno nuevo");
+            f.createNewFile();
+        }
+        boolean guardado = false;
+        try {
+            FileWriter fw = new FileWriter(f); // Abre el archivo en modo de sobreescritura
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (Producto p : listaProductos) {
+                System.out.println("Guardando producto: " + p);
+                bw.write(p.toString());
+                bw.newLine();
+            }
+            bw.flush();
+            System.out.println("Datos guardados exitosamente");
+            guardado = true;
+            fw.close();
+            bw.close();
+        } catch (IOException e) {
+            System.err.println("Error al guardar los datos: " + e.getMessage());
+        }
+        return guardado;
+    }
+    public void cargarDatosProductos() throws IOException{
+        File f= new File("Productos.txt");
+        if(!f.exists())
+        {
+            System.out.println("Fichero no existente, creando uno nuevo");
+            f.createNewFile();
+        }
+        FileReader fr= new FileReader(f);
+        BufferedReader br= new BufferedReader(fr);
+        String linea= "";
+        Producto producto=null;
+        try {
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(",");
+                String nombre = datos[0];
+                int id = Integer.parseInt(datos[1]);
+                float precio = Float.parseFloat(datos[2]);
+                int stock = Integer.parseInt(datos[3]);
+                producto = new Producto(nombre, id, precio, stock);
+                listaProductos.add(producto);
+                producto = null;
+            }
+        } catch (Exception e) { System.out.println("Error "+ e); }
+        fr.close();
+        br.close();
+
+        fr= null;
+        br= null;
+    }
+
+    public void cargarDatosPedidos() throws  IOException{
+        File f= new File("Pedidos.txt");
+        if(!f.exists())
+        {
+            System.out.println("Fichero no existente, creando uno nuevo");
+            f.createNewFile();
+        }
+        FileReader fr= new FileReader(f);
+        BufferedReader br= new BufferedReader(fr);
+        String linea= "";
+        Producto producto=null;
+        while((linea= br.readLine())!= null) {
+            String[] datos= linea.split(",");
+            String idPedido= datos[0];
+            int idCliente= Integer.parseInt(datos[1]);
+            String[] idProductos= datos[2].split(";");
+            ArrayList<Integer> lProductos= new ArrayList<>();
+            for(String idP: idProductos){
+                int id=Integer.parseInt(idP);
+                lProductos.add(id);
+            }
+            float costeTotal= Float.parseFloat(datos[3]);
+            String estado= datos[4];
+            Pedido p= new Pedido(idPedido,idCliente,lProductos,costeTotal,estado);
+            listaPedidos.add(p);
         }
     }
 

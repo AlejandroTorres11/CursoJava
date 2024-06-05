@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Pedido {
     private String id;
     private int idCliente;
-    private ArrayList<Producto> productos;
+    private ArrayList<Integer> productos;
     private float costeTotal;
     private String estado;
 
-    public Pedido(String id, int idCliente, ArrayList<Producto> productos, float costeTotal, String estado) {
+    public Pedido(String id, int idCliente, ArrayList<Integer> productos, float costeTotal, String estado) {
         this.id = id;
         this.idCliente = idCliente;
         this.productos = productos;
@@ -33,11 +33,11 @@ public class Pedido {
         this.idCliente = idCliente;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public ArrayList<Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(ArrayList<Integer> productos) {
         this.productos = productos;
     }
 

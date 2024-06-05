@@ -1,0 +1,25 @@
+CREATE DATABASE TIENDA;
+show databases;
+
+use tienda;
+CREATE TABLE productos (
+	id INT NOT NULL AUTO_INCREMENT,
+    nombre TEXT NOT NULL,
+    precio FLOAT NOT NULL,
+    stock INT NOT NULL,
+    PRIMARY KEY (id)
+);
+CREATE TABLE Cliente (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    provincia VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+CREATE TABLE Carrito (
+    cliente_id INT NOT NULL,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (cliente_id, producto_id),
+    FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
+    FOREIGN KEY (producto_id) REFERENCES Producto(id)
+);

@@ -125,9 +125,9 @@ public class BancoController {
         return resultado;
     }
     public boolean salvarDatos() throws IOException{
-        boolean salvado = false;
+        boolean salvado = false; 
         FileWriter fw;
-        fw = new FileWriter("Clinica.txt");//borramos el fichero y creamos uno nuevo
+        fw = new FileWriter("Productos.txt");//borramos el fichero y creamos uno nuevo
         BufferedWriter bw = new BufferedWriter(fw);
         for (CuentaBancaria cb: listaCuentas) {
             bw.write(cb.toString());

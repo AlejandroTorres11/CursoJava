@@ -1,17 +1,21 @@
 package TiendaOnline;
 
+import java.util.ArrayList;
+
 public class Producto {
     private String nombre;
     private int id;
     private float precio;
+    private int stock;
 
-
-    public Producto(String nombre, int id, float precio) {
+    public Producto(String nombre, int id, float precio,int stock) {
         this.nombre = nombre;
         this.id = id;
         this.precio = precio;
-
+        this.stock = stock;
     }
+
+
 
     public String getNombre() {
         return nombre;
@@ -37,13 +41,17 @@ public class Producto {
         this.precio = precio;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     @Override
     public String toString() {
-        return "Producto{" +
-                "nombre='" + nombre + '\'' +
-                ", id=" + id +
-                ", precio=" + precio +
-                '}';
+        return   nombre + ","+ id + "," + precio + "," + stock;
     }
 
 }
